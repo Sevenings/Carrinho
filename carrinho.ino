@@ -15,7 +15,7 @@
 
 BluetoothSerial SerialBT;
 Carrinho carrinho(23, 27, 26, 22);
-//Controlador controlador(&carrinho);
+Controlador controlador(&carrinho);
 
 
 
@@ -30,15 +30,17 @@ void setup() {
 
 
 
-byte command;
+byte ordem;
 void loop() {
     // Ler Entrada bluetooth
     if (SerialBT.available()) {
-        command = SerialBT.read();
-        Serial.write(command);
+        ordem = SerialBT.read();
+        Serial.write(ordem);
     }
 
     // Interpretar Comando recebido
+    controlador.interpretarOrdens(ordem);
  
+    // Executar ações do carrinho
     carrinho.update();
 }
