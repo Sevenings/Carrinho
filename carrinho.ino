@@ -1,6 +1,6 @@
 #include <AccelStepper.h>
 #include <BluetoothSerial.h>
-#include "controlador.h"
+#include "Controlador.h"
 #include "Carrinho.h"
 
 /* Check if Bluetooth configurations are enabled in the SDK */
@@ -15,6 +15,8 @@
 
 BluetoothSerial SerialBT;
 Carrinho carrinho(23, 27, 26, 22);
+//Controlador controlador(&carrinho);
+
 
 
 
@@ -37,27 +39,6 @@ void loop() {
     }
 
     // Interpretar Comando recebido
-    switch (command) {
-        case COM_PARAR:
-            carrinho.setParado();
-            break;
-
-        case COM_ANDAR_FRENTE:
-            carrinho.setFrente();
-            break;
-
-        case COM_ANDAR_TRAS:
-            carrinho.setTras();
-            break;
-
-        case COM_VIRAR_HORARIO:
-            carrinho.setVirarHorario();
-            break;
-
-        case COM_VIRAR_ANTI_HORARIO:
-            carrinho.setVirarAntiHorario();
-            break;
-    }
  
     carrinho.update();
 }
