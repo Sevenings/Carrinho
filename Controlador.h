@@ -18,7 +18,11 @@ class Controlador {
             COM_VIRAR_HORARIO = '3',
             COM_VIRAR_ANTI_HORARIO = '4',
             COM_MUDAR_VELOCIDADE = 'v',
-            COM_FIM = ';'
+            COM_FIM = ';',
+            COM_LIGAR_ESFREGAO = '5',
+            COM_LIGAR_ESFREGAO_ANTI = '6',
+            COM_DESLIGAR_ESFREGAO = '7'
+
         } Comando;
 
         // Possíveis estados que o Controlador pode ocupar como um autômato finito, 
@@ -118,7 +122,22 @@ class Controlador {
                             estadoControlador = LENDO_VELOCIDADE;
                             limparMemoria();
                             break;
-                    }
+
+                        // Ligar esfregão
+                        case COM_LIGAR_ESFREGAO:
+                            carrinho->enableEsfregao();
+                            break;
+
+                        // Desligar esfregão
+                        case COM_DESLIGAR_ESFREGAO:
+                            carrinho->disableEsfregao();
+                            break;
+
+                        case COM_LIGAR_ESFREGAO_ANTI:
+                            carrinho->enableEsfregaoHorario();
+                            break;
+
+                    } 
                     break;
 
                 // Estado Lendo Velocidade
@@ -142,10 +161,6 @@ class Controlador {
                     break;
             }
         }
-    
 };
-
-
-
 
 #endif

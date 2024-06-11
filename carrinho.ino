@@ -14,7 +14,30 @@
 
 
 BluetoothSerial SerialBT;
-Carrinho carrinho(23, 27, 26, 22);
+
+// Não funcionam
+// 34, 35, 36, 39
+
+// Original
+#define pinPulL 23
+#define pinDirL 27
+//#define pinEnaL
+
+// Original
+#define pinPulR 26
+#define pinDirR 22
+//#define pinEnaR
+
+// Original
+#define pinPulE 32
+#define pinDirE 12
+//#define pinEnaE 15
+
+
+Carrinho carrinho(pinPulL, pinDirL,     // Motor Left
+                  pinPulR, pinDirR,     // Motor Right
+                  pinPulE, pinDirE);    // Motor Esfregão
+
 Controlador controlador(&carrinho);
 
 
@@ -22,7 +45,7 @@ Controlador controlador(&carrinho);
 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   SerialBT.begin("ESP32");
   Serial.println("Bluetooth Started! Ready to pair...");
 }
@@ -40,7 +63,10 @@ void loop() {
 
     // Interpretar Comando recebido
     controlador.interpretarOrdens(ordem);
+
  
     // Executar ações do carrinho
     carrinho.update();
 }
+
+
