@@ -3,8 +3,8 @@ Código do Carrinho limpador das placas solares
 
 
 ## To-do
- - [ ] Conectar cabos Esfregão
-    - [ ] Codificar controle Esfregão
+ - [x] Conectar cabos Esfregão
+    - [x] Codificar controle Esfregão
  - [ ] Adicionar bateria
     - [ ] Colocar todos os componentes na caixinha
  - [ ] Testar rodinhas para curva
