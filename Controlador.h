@@ -21,7 +21,9 @@ class Controlador {
             COM_FIM = ';',
             COM_LIGAR_ESFREGAO = '5',
             COM_LIGAR_ESFREGAO_ANTI = '6',
-            COM_DESLIGAR_ESFREGAO = '7'
+            COM_DESLIGAR_ESFREGAO = '7',
+            COM_ABRIR_TORNEIRA = '8',
+            COM_FECHAR_TORNEIRA = '9'
 
         } Comando;
 
@@ -133,10 +135,20 @@ class Controlador {
                             carrinho->disableEsfregao();
                             break;
 
+                        // Ligar esfregão anti-horário
                         case COM_LIGAR_ESFREGAO_ANTI:
                             carrinho->enableEsfregaoHorario();
                             break;
 
+                        // Abrir torneira
+                        case COM_ABRIR_TORNEIRA:
+                            carrinho->abrirTorneira();
+                            break;
+
+                        // Fechar torneira
+                        case COM_FECHAR_TORNEIRA:
+                            carrinho->fecharTorneira();
+                            break;
                     } 
                     break;
 

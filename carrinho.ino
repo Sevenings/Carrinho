@@ -33,10 +33,14 @@ BluetoothSerial SerialBT;
 #define pinDirE 12
 //#define pinEnaE 15
 
+// Rele Torneira
+#define pinEnaT 21
+
 
 Carrinho carrinho(pinPulL, pinDirL,     // Motor Left
                   pinPulR, pinDirR,     // Motor Right
-                  pinPulE, pinDirE);    // Motor Esfregão
+                  pinPulE, pinDirE,     // Motor Esfregão
+                  pinEnaT);             // Rele Torneira
 
 Controlador controlador(&carrinho);
 

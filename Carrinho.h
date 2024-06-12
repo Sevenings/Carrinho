@@ -1,6 +1,7 @@
 #ifndef CARRINHO_H
 #define CARRINHO_H
 
+
 #include <AccelStepper.h>
 
 class Carrinho {
@@ -43,9 +44,17 @@ class Carrinho {
         int maxSpeedEsfregao = 1600;
         int speedEsfregao = 1600;
 
+        // Variáveis Relacionadas a torneira
+        // ------------------------------------------
+
+        bool torneiraTrancada = true;
+        int pinEnaT;
 
     public:
-        Carrinho(int pinPulL, int pinDirL, int pinPulR, int pinDirR, int pinPulE, int pinDirE) {
+        Carrinho(int pinPulL, int pinDirL, 
+                 int pinPulR, int pinDirR,
+                 int pinPulE, int pinDirE,
+                 int pinEnaT) {
             motorL = AccelStepper(AccelStepper::DRIVER, pinPulL, pinDirL);            
             motorR = AccelStepper(AccelStepper::DRIVER, pinPulR, pinDirR);            
             motorE = AccelStepper(AccelStepper::DRIVER, pinPulE, pinDirE);            
@@ -53,13 +62,17 @@ class Carrinho {
             motorL.setMaxSpeed(maxSpeed);
             motorR.setMaxSpeed(maxSpeed);
             motorE.setMaxSpeed(maxSpeedEsfregao);
+
+            this->pinEnaT = pinEnaT;
+            pinMode(this->pinEnaT, OUTPUT);
         }
 
         Carrinho(int pinPulL, int pinDirL, int pinEnaL, 
                  int pinPulR, int pinDirR, int pinEnaR, 
-                 int pinPulE, int pinDirE, int pinEnaE)
+                 int pinPulE, int pinDirE, int pinEnaE,
+                 int pinEnaT)
         {
-            Carrinho(pinPulL, pinDirL, pinPulR, pinDirR, pinPulE, pinDirE);
+            Carrinho(pinPulL, pinDirL, pinPulR, pinDirR, pinPulE, pinDirE, pinEnaT);
             motorL.setEnablePin(pinEnaL);
             motorR.setEnablePin(pinEnaR);
             motorE.setEnablePin(pinEnaE);
@@ -104,6 +117,18 @@ class Carrinho {
 
         void disableEsfregao() {
             estadoEsfregao = ESF_PARADO;
+        }
+        // Controles Torneira
+        // ----------------------
+
+        void abrirTorneira(){
+            digitalWrite(pinEnaT, HIGH);
+            torneiraTrancada = false;
+        }
+
+        void fecharTorneira(){
+            digitalWrite(pinEnaT, LOW);
+            torneiraTrancada = true;
         }
 
         // Update
