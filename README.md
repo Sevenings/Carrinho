@@ -9,10 +9,10 @@ Código do Carrinho limpador das placas solares
     - [ ] Colocar todos os componentes na caixinha
  - [ ] Testar rodinhas para curva
  - [ ] Testar em rampa
- - [ ] Adicionar mangueira
-    - [ ] Conectar cabos Relay - Mangueira
-    - [ ] Programar método abrir/fechar mangueira
-    - [ ] Programar comando abrir/fechar mangueira
+ - [x] Adicionar mangueira
+    - [x] Conectar cabos Relay - Mangueira
+    - [x] Programar método abrir/fechar mangueira
+    - [x] Programar comando abrir/fechar mangueira
  - [ ] Testar modo neutro no esfregão
  - [ ] Testar girar esfregão no sentido de movimento
  - [ ] (Opcional) Adicionar sensores 
