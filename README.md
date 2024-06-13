@@ -16,3 +16,6 @@ Código do Carrinho limpador das placas solares
  - [ ] Testar modo neutro no esfregão
  - [ ] Testar girar esfregão no sentido de movimento
  - [ ] (Opcional) Adicionar sensores 
+
+ - [ ] Tornar código atualizável via OTA
+ - [ ] Fazer diagrama do circuito do carrinho
