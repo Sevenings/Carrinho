@@ -3,12 +3,11 @@
 
 #include "Carrinho.h"
 #include <cstdio>
-#include <string.h>
 
 
 class Controlador {
     private: 
-        #define TAMANHO_MEMORIA 8
+        #define TAMANHO_MEMORIA 6
 
         // Comandos recebidos externamente
         typedef enum Comando {
@@ -53,10 +52,10 @@ class Controlador {
         void salvarNaMemoria(char conteudo) {
             // Encontra o final do buffer
             int i = 0;
-            while (i < 8 && memoria[i] != '\0') {
+            while (i < TAMANHO_MEMORIA && memoria[i] != '\0') {
                 i++;
             }
-            if (i >= 8) {
+            if (i >= TAMANHO_MEMORIA) {
                 // Erro
             }
 
