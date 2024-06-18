@@ -1,6 +1,11 @@
-//#include <BluetoothSerial.h>
+// Bibliotecas Controle via Wifi
+#include <WiFi.h>
+#include <NetworkClient.h>
+#include <WiFiAP.h>
+
 #include "Controlador.h"
 #include "Carrinho.h"
+
 #include "MyOtaService.h"
 
 
@@ -35,21 +40,39 @@ Carrinho carrinho(pinPulL, pinDirL,     // Motor Left
 Controlador controlador(&carrinho);
 
 
-// Bluetooth
+// Wifi
 // -------------
 
-/*
-BluetoothSerial SerialBT;
+#define CtrlServerPort 65432
+NetworkServer controladorServer(CtrlServerPort);
 
-byte ordem;
-*/
+char ordem;
 
 // Arduino
 // -----------
 
 void setup() {
     Serial.begin(115200);
-    //SerialBT.begin("ESP32");
+
+    char ssid[] = "Carrinho Net";
+    char password[] = "Carrinho_Senha";
+
+    // Wifi Access Point Start
+    if (!WiFi.softAP(ssid, password)) {
+        log_e("Soft AP creation failed.");
+        while (1);
+    }
+    IPAddress myIP = WiFi.softAPIP();
+
+    Serial.print("AP IP address: ");
+    Serial.println(myIP);
+
+    Serial.print("Control TCP Server on Port: ");
+    Serial.println(CtrlServerPort);
+
+    controladorServer.begin();
+
+    Serial.println("Server started");
 
     setupOTA();
 }
@@ -59,20 +82,27 @@ void setup() {
 
 void loop() {
     loopOTA();
+    NetworkClient client = controladorServer.accept();  
 
-    /*
-    // Ler Entrada bluetooth
-    if (SerialBT.available()) {
-        ordem = SerialBT.read();
-        Serial.write(ordem);
+    if (client) {
+        Serial.println("Novo cliente conectado!");
+        ordem = ' ';
+
+        while (client.connected()) {
+            // Ler Entrada Wifi
+            if (client.available()) {
+                ordem = client.read();
+                Serial.write(ordem);
+            }
+
+            // Interpretar Comando recebido
+            controlador.interpretarOrdens(ordem);
+         
+            // Executar ações do carrinho
+            carrinho.update();
+            loopOTA();
+        }
     }
-
-    // Interpretar Comando recebido
-    controlador.interpretarOrdens(ordem);
-    */
- 
-    // Executar ações do carrinho
-    carrinho.update();
 }
 
 
